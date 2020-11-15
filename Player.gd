@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const ACCELERATION = 512
 const MAX_SPEED = 64
-const FRICTION = 0.25
+const FRICTION = 0.3
 const GRAVITY = 600
 const JUMP_FORCE = 240
 const AIR_FRICTION = 0.025
@@ -23,7 +23,7 @@ func _physics_process(delta):
 			$Frogo.flip_h = false
 		else:
 			$Frogo.flip_h = true
-	else:
+	elif $Frogo.animation == "run":
 		$Frogo.animation = "idle"
 	
 	motion.y += GRAVITY * delta;
@@ -33,6 +33,8 @@ func _physics_process(delta):
 			motion.x = lerp(motion.x, 0, FRICTION)
 		if Input.is_action_just_pressed("ui_up"):
 			motion.y = -JUMP_FORCE
+		if Input.is_action_just_pressed("ui_down"):
+			$Frogo.play("take")
 	else:
 		if Input.is_action_just_released("ui_up")\
 		and motion.y < -JUMP_FORCE/2:
@@ -41,3 +43,8 @@ func _physics_process(delta):
 			motion.x = lerp(motion.x, 0, AIR_FRICTION)
 	
 	motion = move_and_slide(motion, Vector2.UP)
+
+
+func _on_Frogo_animation_finished():
+	if $Frogo.animation != "idle":
+		$Frogo.animation = "idle"

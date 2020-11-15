@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://frogo/idle-1.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -12,6 +12,15 @@
 [ext_resource path="res://frogo/Run-2.png" type="Texture" id=10]
 [ext_resource path="res://frogo/Run-1.png" type="Texture" id=11]
 [ext_resource path="res://frogo/Run-4.png" type="Texture" id=12]
+[ext_resource path="res://frogo/attack5.png" type="Texture" id=13]
+[ext_resource path="res://frogo/attack3.png" type="Texture" id=14]
+[ext_resource path="res://frogo/attack7.png" type="Texture" id=15]
+[ext_resource path="res://frogo/attack8.png" type="Texture" id=16]
+[ext_resource path="res://frogo/attack6.png" type="Texture" id=17]
+[ext_resource path="res://frogo/attack2.png" type="Texture" id=18]
+[ext_resource path="res://frogo/attack9.png" type="Texture" id=19]
+[ext_resource path="res://frogo/attack1.png" type="Texture" id=20]
+[ext_resource path="res://frogo/attack4.png" type="Texture" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.17148, 12.3937 )
@@ -27,6 +36,11 @@ animations = [ {
 "loop": true,
 "name": "run",
 "speed": 8.0
+}, {
+"frames": [ ExtResource( 20 ), ExtResource( 18 ), ExtResource( 14 ), ExtResource( 21 ), ExtResource( 13 ), ExtResource( 17 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 19 ) ],
+"loop": false,
+"name": "take",
+"speed": 16.0
 } ]
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
@@ -39,7 +53,6 @@ shape = SubResource( 1 )
 
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( 1.16216, -0.661171 )
-scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 color = Color( 0.803922, 0.796078, 0.737255, 1 )
 
@@ -47,5 +60,6 @@ color = Color( 0.803922, 0.796078, 0.737255, 1 )
 position = Vector2( -0.968277, -1.65741 )
 scale = Vector2( 0.1, 0.1 )
 frames = SubResource( 2 )
-animation = "run"
+animation = "idle"
 playing = true
+[connection signal="animation_finished" from="Frogo" to="." method="_on_Frogo_animation_finished"]
