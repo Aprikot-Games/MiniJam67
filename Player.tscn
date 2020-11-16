@@ -1,17 +1,17 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
-[ext_resource path="res://frogo/idle-1.png" type="Texture" id=1]
+[ext_resource path="res://frogo/run_5.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
 [ext_resource path="res://frogo/light.png" type="Texture" id=3]
-[ext_resource path="res://frogo/Idle-3.png" type="Texture" id=4]
-[ext_resource path="res://frogo/Idle-2.png" type="Texture" id=5]
-[ext_resource path="res://frogo/Idle-4.png" type="Texture" id=6]
-[ext_resource path="res://frogo/Run-6.png" type="Texture" id=7]
-[ext_resource path="res://frogo/Run-3.png" type="Texture" id=8]
-[ext_resource path="res://frogo/Run-5.png" type="Texture" id=9]
-[ext_resource path="res://frogo/Run-2.png" type="Texture" id=10]
-[ext_resource path="res://frogo/Run-1.png" type="Texture" id=11]
-[ext_resource path="res://frogo/Run-4.png" type="Texture" id=12]
+[ext_resource path="res://frogo/run_6.png" type="Texture" id=4]
+[ext_resource path="res://frogo/run_2.png" type="Texture" id=5]
+[ext_resource path="res://frogo/idle_3.png" type="Texture" id=6]
+[ext_resource path="res://frogo/idle_2.png" type="Texture" id=7]
+[ext_resource path="res://frogo/idle_4.png" type="Texture" id=8]
+[ext_resource path="res://frogo/run_3.png" type="Texture" id=9]
+[ext_resource path="res://frogo/idle_1.png" type="Texture" id=10]
+[ext_resource path="res://frogo/run_1.png" type="Texture" id=11]
+[ext_resource path="res://frogo/run_4.png" type="Texture" id=12]
 [ext_resource path="res://frogo/attack5.png" type="Texture" id=13]
 [ext_resource path="res://frogo/attack3.png" type="Texture" id=14]
 [ext_resource path="res://frogo/attack7.png" type="Texture" id=15]
@@ -21,27 +21,39 @@
 [ext_resource path="res://frogo/attack9.png" type="Texture" id=19]
 [ext_resource path="res://frogo/attack1.png" type="Texture" id=20]
 [ext_resource path="res://frogo/attack4.png" type="Texture" id=21]
+[ext_resource path="res://frogo/Jump_3.png" type="Texture" id=22]
+[ext_resource path="res://frogo/Jump_2.png" type="Texture" id=23]
+[ext_resource path="res://frogo/Jump_1.png" type="Texture" id=24]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.17148, 12.3937 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 8 ) ],
 "loop": true,
 "name": "idle",
 "speed": 4.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 12 ), ExtResource( 9 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "run",
-"speed": 8.0
 }, {
 "frames": [ ExtResource( 20 ), ExtResource( 18 ), ExtResource( 14 ), ExtResource( 21 ), ExtResource( 13 ), ExtResource( 17 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 19 ) ],
 "loop": false,
 "name": "take",
 "speed": 16.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 12 ), ExtResource( 1 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "run",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 22 ), ExtResource( 24 ), ExtResource( 23 ) ],
+"loop": false,
+"name": "jump",
+"speed": 8.0
 } ]
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 11.6423
+height = 5.56514
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 position = Vector2( 14.4891, 17.6389 )
@@ -52,14 +64,25 @@ position = Vector2( -1.21534, 1.28716 )
 shape = SubResource( 1 )
 
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 1.16216, -0.661171 )
+position = Vector2( 2.497, -0.828026 )
+scale = Vector2( 1.1, 1.1 )
 texture = ExtResource( 3 )
 color = Color( 0.803922, 0.796078, 0.737255, 1 )
 
 [node name="Frogo" type="AnimatedSprite" parent="."]
-position = Vector2( -0.968277, -1.65741 )
+position = Vector2( 7.30988, -1.65741 )
 scale = Vector2( 0.1, 0.1 )
 frames = SubResource( 2 )
-animation = "idle"
+animation = "jump"
+frame = 2
 playing = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 12, 0 )
+shape = SubResource( 3 )
+disabled = true
 [connection signal="animation_finished" from="Frogo" to="." method="_on_Frogo_animation_finished"]

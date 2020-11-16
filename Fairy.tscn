@@ -1,0 +1,46 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://frogo/Fairy_2.png" type="Texture" id=1]
+[ext_resource path="res://frogo/light.png" type="Texture" id=2]
+[ext_resource path="res://frogo/Fairy_7.png" type="Texture" id=3]
+[ext_resource path="res://frogo/Fairy_1.png" type="Texture" id=4]
+[ext_resource path="res://frogo/Fairy_6.png" type="Texture" id=5]
+[ext_resource path="res://frogo/Fairy_8.png" type="Texture" id=6]
+[ext_resource path="res://frogo/Fairy_5.png" type="Texture" id=7]
+[ext_resource path="res://frogo/Fairy_3.png" type="Texture" id=8]
+[ext_resource path="res://frogo/Fairy_4.png" type="Texture" id=9]
+[ext_resource path="res://Fairy.gd" type="Script" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 42.5, 45 )
+
+[node name="AnimatedSprite" type="AnimatedSprite"]
+scale = Vector2( 0.1, 0.1 )
+frames = SubResource( 1 )
+animation = "idle"
+frame = 2
+playing = true
+script = ExtResource( 10 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0.030304, 0.530991 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+color = Color( 0.992157, 0.92549, 0.4, 1 )
+range_item_cull_mask = -2147483647
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

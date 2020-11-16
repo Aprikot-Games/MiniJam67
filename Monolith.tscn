@@ -1,0 +1,47 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://res/mono.png" type="Texture" id=1]
+[ext_resource path="res://frogo/light.png" type="Texture" id=2]
+[ext_resource path="res://Monolith.gd" type="Script" id=3]
+[ext_resource path="res://frogo/shine_2.png" type="Texture" id=4]
+[ext_resource path="res://frogo/shine_4.png" type="Texture" id=5]
+[ext_resource path="res://frogo/shine_5.png" type="Texture" id=6]
+[ext_resource path="res://frogo/shine_1.png" type="Texture" id=7]
+[ext_resource path="res://frogo/shine_3.png" type="Texture" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 80.8615, 119.948 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 7 ), ExtResource( 4 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "idle",
+"speed": 4.0
+} ]
+
+[node name="Monolith" type="Sprite"]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, 1 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 4.31246, 1.34636 )
+frames = SubResource( 2 )
+animation = "idle"
+frame = 2
+playing = true
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 2.80617, -5.61232 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 2 )
+color = Color( 0.992157, 0.92549, 0.4, 1 )
+energy = 0.5
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
