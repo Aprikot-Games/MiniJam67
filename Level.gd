@@ -18,6 +18,7 @@ func _on_Monolith_touch(color, monolith):
 	if color == $Player.belly:
 		monolith.active = true
 		$Player.reset_belly()
+		$Twinkle.play()
 		progress += 1
 
 
@@ -26,4 +27,4 @@ func _on_VisibilityNotifier2D2_screen_exited():
 		get_tree().reload_current_scene()
 
 func _on_Timer_timeout():
-	$CanvasLayer/Label.hide()
+	get_tree().reload_current_scene()

@@ -68,9 +68,11 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("ui_up"):
 			motion.y = -JUMP_FORCE
 			$Frogo.animation = "jump"
+			$Jump.play()
 			$Area2D/CollisionShape2D.disabled = true
 		if Input.is_action_just_pressed("ui_down") and belly == fairy.NON:
 			$Frogo.play("take")
+			$Lick.play()
 			$Area2D/CollisionShape2D.disabled = false
 			
 	else:

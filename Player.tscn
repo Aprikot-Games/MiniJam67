@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://frogo/run_5.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -24,6 +24,8 @@
 [ext_resource path="res://frogo/Jump_3.png" type="Texture" id=22]
 [ext_resource path="res://frogo/Jump_2.png" type="Texture" id=23]
 [ext_resource path="res://frogo/Jump_1.png" type="Texture" id=24]
+[ext_resource path="res://jump.wav" type="AudioStream" id=25]
+[ext_resource path="res://lick.wav" type="AudioStream" id=26]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.17148, 12.3937 )
@@ -85,4 +87,12 @@ collision_mask = 2
 position = Vector2( 12, 0 )
 shape = SubResource( 3 )
 disabled = true
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 25 )
+volume_db = -5.0
+attenuation = 0.482968
+
+[node name="Lick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 26 )
 [connection signal="animation_finished" from="Frogo" to="." method="_on_Frogo_animation_finished"]
